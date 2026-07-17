@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: pdv.java
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/pdv}
+    username: ${DB_USERNAME:pdv}
+    password: ${DB_PASSWORD:pdv}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: ${SERVER_PORT:8080}
