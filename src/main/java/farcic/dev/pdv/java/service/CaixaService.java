@@ -4,6 +4,7 @@ import farcic.dev.pdv.java.dto.request.AbrirCaixaRequestDto;
 import farcic.dev.pdv.java.dto.response.AbrirCaixaResponseDto;
 import farcic.dev.pdv.java.entity.Caixa;
 import farcic.dev.pdv.java.entity.Usuario;
+import farcic.dev.pdv.java.exeption.CashRegisterAlreadyOpenException;
 import farcic.dev.pdv.java.mapper.CaixaMapper;
 import farcic.dev.pdv.java.repository.CaixaRepository;
 import farcic.dev.pdv.java.repository.UsuarioRepository;
@@ -20,7 +21,7 @@ public class CaixaService {
 
     public AbrirCaixaResponseDto abrirCaixa(AbrirCaixaRequestDto request) {
         Usuario operador = usuarioRepository.findById(request.operadorId())
-                .orElseThrow(() -> new RuntimeException("Operador não encontrado"));
+                .orElseThrow(() -> new CashRegisterAlreadyOpenException("Operador não encontrado"));
 
         Caixa entity = mapper.toEntity(request, operador);
         Caixa saved = caixaRepository.save(entity);
