@@ -1,8 +1,10 @@
 package farcic.dev.pdv.java.controller;
 
-import farcic.dev.pdv.java.dto.request.AbrirCaixaRequestDto;
-import farcic.dev.pdv.java.dto.response.AbrirCaixaResponseDto;
+import farcic.dev.pdv.java.dto.request.AbrirCaixaRequest;
+import farcic.dev.pdv.java.dto.request.FecharCaixaRequest;
+import farcic.dev.pdv.java.dto.response.CaixaResponse;
 import farcic.dev.pdv.java.service.CaixaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,19 +20,19 @@ public class CaixaController {
 
     @PostMapping("/abrir")
     @ResponseStatus(HttpStatus.CREATED)
-    public AbrirCaixaResponseDto abrirCaixa(@RequestBody AbrirCaixaRequestDto requestDto) {
+    public CaixaResponse abrirCaixa(@RequestBody @Valid AbrirCaixaRequest requestDto) {
         return service.abrirCaixa(requestDto);
     }
 
     @PutMapping("/fechar/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public AbrirCaixaResponseDto fecharCaixa(@PathVariable Long id) {
-        return service.closeCaixa(id);
+    public CaixaResponse fecharCaixa(@PathVariable Long id, @RequestBody @Valid FecharCaixaRequest valorFechamento) {
+        return service.closeCaixa(id, valorFechamento);
     }
 
     @GetMapping("/listar")
     @ResponseStatus(HttpStatus.OK)
-    public List<AbrirCaixaResponseDto> listarCaixas() {
+    public List<CaixaResponse> listarCaixas() {
         return service.listAll();
     }
 

@@ -7,10 +7,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Builder
-public record AbrirCaixaResponseDto(
+public record CaixaResponse(
         Long id,
         LocalDateTime abertoEm,
+        LocalDateTime fechadoEm,
         BigDecimal valorAbertura,
+        BigDecimal valorFechamento,
         StatusCaixaEnum status,
         Long operadorId
 ) {

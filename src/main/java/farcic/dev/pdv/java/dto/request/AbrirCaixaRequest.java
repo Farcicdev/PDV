@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public record AbrirCaixaRequestDto(
+public record AbrirCaixaRequest(
 
         @NotNull
         @DecimalMin("0.00")
