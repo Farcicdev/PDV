@@ -1,7 +1,9 @@
 package farcic.dev.pdv.java.controller;
 
 import farcic.dev.pdv.java.dto.request.CadastroProdutoRequest;
+import farcic.dev.pdv.java.dto.request.UpdateProdutosRequest;
 import farcic.dev.pdv.java.dto.response.CadastroProdutoResponse;
+import farcic.dev.pdv.java.dto.response.CaixaResponse;
 import farcic.dev.pdv.java.service.ProdutosService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,12 @@ public class ProdutosController {
     @GetMapping
     public Page<CadastroProdutoResponse> listarProdutos(Pageable pageable) {
         return service.listarProdutos(pageable);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public CaixaResponse atulizarCadastro(@PathVariable Long id,@RequestBody UpdateProdutosRequest request){
+        return null;
     }
 
 }

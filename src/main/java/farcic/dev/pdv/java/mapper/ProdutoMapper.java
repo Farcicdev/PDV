@@ -24,6 +24,5 @@ public class ProdutoMapper {
                 .preco(produto.getPreco())
                 .ativo(produto.getAtivo())
                 .build();
-
     }
 }

@@ -1,6 +1,7 @@
 package farcic.dev.pdv.java.service;
 
 import farcic.dev.pdv.java.dto.request.CadastroProdutoRequest;
+import farcic.dev.pdv.java.dto.request.UpdateProdutosRequest;
 import farcic.dev.pdv.java.dto.response.CadastroProdutoResponse;
 import farcic.dev.pdv.java.entity.Produto;
 import farcic.dev.pdv.java.exeption.CodigoBarrasJaExisteException;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 public class ProdutosService {
 
     private final ProdutoRepository produtoRepository;
-
     private final ProdutoMapper produtoMapper;
 
     public CadastroProdutoResponse criarProduto(CadastroProdutoRequest request) {
@@ -35,4 +35,16 @@ public class ProdutosService {
                 .map(produtoMapper::toResponse);
     }
 
+    public CadastroProdutoResponse atualizarProdutos(Long id, UpdateProdutosRequest request){
+        Produto produtoId = produtoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado com o ID: " + id));
+
+        produtoId.setNome(request.nome());
+        produtoId.setCodigoBarras(request.codigoBarras());
+        produtoId.setPreco(request.preco());
+        produtoId.setAtivo(request.ativo());
+
+        Produto updatedProduto = produtoRepository.save(produtoId);
+        return produtoMapper.toResponse(updatedProduto);
+    }
 }
