@@ -35,5 +35,4 @@ public class CaixaController {
     public List<CaixaResponse> listarCaixas() {
         return service.listAll();
     }
-
 }

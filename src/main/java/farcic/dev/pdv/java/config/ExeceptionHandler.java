@@ -4,6 +4,7 @@ import farcic.dev.pdv.java.dto.exceptionDto.ResponseError;
 import farcic.dev.pdv.java.exeption.CashRegisterAlreadyOpenException;
 import farcic.dev.pdv.java.exeption.EmailAreadyExistException;
 import farcic.dev.pdv.java.exeption.CodigoBarrasJaExisteException;
+import farcic.dev.pdv.java.exeption.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -50,5 +51,15 @@ public class ExeceptionHandler {
                 .body(error);
     }
 
-
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ResponseError> handleProductNotFoundException(ProductNotFoundException ex) {
+        ResponseError error = ResponseError.builder()
+                .message(ex.getMessage())
+                .status(HttpStatus.NOT_FOUND.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(error);
+    }
 }

@@ -5,6 +5,7 @@ import farcic.dev.pdv.java.dto.request.UpdateProdutosRequest;
 import farcic.dev.pdv.java.dto.response.CadastroProdutoResponse;
 import farcic.dev.pdv.java.entity.Produto;
 import farcic.dev.pdv.java.exeption.CodigoBarrasJaExisteException;
+import farcic.dev.pdv.java.exeption.ProductNotFoundException;
 import farcic.dev.pdv.java.mapper.ProdutoMapper;
 import farcic.dev.pdv.java.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class ProdutosService {
 
     public CadastroProdutoResponse atualizarProdutos(Long id, UpdateProdutosRequest request){
         Produto produtoId = produtoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado com o ID: " + id));
+                .orElseThrow(() -> new ProductNotFoundException("Produto não encontrado com o ID: " + id));
 
         produtoId.setNome(request.nome());
         produtoId.setCodigoBarras(request.codigoBarras());
